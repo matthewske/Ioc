@@ -1,20 +1,25 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using WebAppIOC.Models;
+using WebAppIOC.Services;
 
-namespace WebAppIOC.Controllers
+namespace WebAppIOC.Models
 {
     public class HomeController : Controller
     {
-        public IActionResult Index()
+        private IProductService _productService;
+
+        public HomeController(IProductService productService)
         {
-            return View();
+            _productService = productService;
         }
 
-        
+        public IActionResult Index()
+        {
+            
+            return View(_productService.getAll());
+        }
     }
 }
